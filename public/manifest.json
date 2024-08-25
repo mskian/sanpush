@@ -1,0 +1,51 @@
+{
+	"name": "Sanpush",
+	"short_name": "Sanpush",
+	"description": "Free Web Push Notification Updates: Just Subscribe to receive notifications.",
+	"icons": [{
+			"src": "/192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"categories": [
+      "notifications"
+    ],
+	"theme_color": "#6eec83",
+	"background_color": "#004AAD",
+	"orientation": "portrait",
+	"start_url": "/",
+	"display": "standalone",
+	"shortcuts": [
+    {
+      "name": "Sanpush",
+      "url": "/",
+      "description": "Free Web Push Notification Updates: Just Subscribe to receive notifications.",
+      "icons": [
+        {
+          "src": "/192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

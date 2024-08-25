@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6eec83">
+<link rel="icon" type="image/png" sizes="196x196" href="/192.png" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/180.png" />
+<meta content="yes" name="mobile-web-app-capable">
+<meta content="Sanpush" name="application-name">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="white-translucent" name="apple-mobile-web-app-status-bar-style">
+<meta content="Sanpush" name="apple-mobile-web-app-title">
+<title>Push Notifications</title>
+<meta name="description" content="Free Web Push Notification Updates: Just Subscribe to receive notifications."/>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    html {
+        font-family: "Hind Madurai", sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background-color: #282C34;
+        color: #E4E6F0;
+        padding: 20px;
+        font-family: "Hind Madurai", sans-serif;
+        font-weight: 600;
+        min-height: 100vh;
+    }
+    .notification {
+        font-family: "Hind Madurai", sans-serif;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .button {
+        font-family: "Hind Madurai", sans-serif;
+        font-weight: 700;
+    }
+    .box {
+        background-color: #1C1C1C;
+        border-radius: 8px;
+        font-family: "Hind Madurai", sans-serif;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+    }
+    .notification-card {
+        font-family: "Hind Madurai", sans-serif;
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #6F1E51;
+        color: #F8EFBA;
+    }
+    .quote {
+        white-space: pre-wrap;
+    }
+    .notification-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .pagination {
+        font-family: "Hind Madurai", sans-serif;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination button {
+        font-family: "Hind Madurai", sans-serif;
+        background-color: #82589F;
+        color: #F8EFBA;
+        border: none;
+        padding: 10px 15px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .pagination button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+</style>
+
+<link href="/manifest.json" rel="manifest">
+<link href="/manifest.json" rel="prefetch">
+
+</head>
+<body>
+
+<section class="section">
+<div class="container">
+<div class="box">
+<h1 class="title has-text-centered has-text-warning is-size-4"><i class="fa fa-bell" aria-hidden="true"></i> Push Notifications</h1>
+<p class="subtitle has-text-centered  has-text-warning is-size-6">Subscribe to receive notifications <i class="fa fa-bolt" aria-hidden="true"></i></p>
+<div class="buttons is-centered">
+<button id="subscribeBtn" class="button is-success is-rounded">
+<i class="fas fa-bell" aria-hidden="true"></i> Subscribe
+</button>
+<button id="unsubscribeBtn" class="button is-danger is-rounded" style="display: none;">
+<i class="fas fa-bell-slash" aria-hidden="true"></i> Unsubscribe
+</button>
+<button id="resubscribeBtn" class="button is-info" style="display: none;">
+<span class="icon"><i class="fas fa-redo" aria-hidden="true"></i></span>
+<span>Resubscribe</span>
+</button>
+</div>
+<article class="notification is-info" id="statusMessage">
+Status updates will appear here
+</article>
+<ul id="notificationList"></ul>
+<div id="pagination" class="pagination" style="display: none;">
+<button id="prevBtn" class="button is-rounded is-small" disabled>Previous</button>
+<button id="nextBtn" class="button is-rounded is-small" disabled>Next</button>
+</div>
+<div class="buttons is-centered">
+<button class="button is-danger is-rounded is-small" id="clearDataBtn">
+<i class="fa fa-trash" aria-hidden="true"></i>&nbsp Clear
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="buttons is-centered">
+<button class="button is-link is-rounded" id="installButton"><i class="fa fa-coffee" aria-hidden="true"></i> Install App</button>
+</div>
+</div>
+</section>
+
+<script defer src="/main.js"></script>
+
+</body>
+</html>
